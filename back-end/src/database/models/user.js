@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     role: DataTypes.STRING
   }, {
     timestamps: false,
-    underscore: true
+    underscored: true,
+    tableName: 'Users',
   });
   Users.associate = (models) => {
     Users.hasMany(models.Sales, {

@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.STRING
   },{
     timestamps: false,
-    underscore: true,
+    underscored: true,
+    tableName: 'Sales',
   });
   Sales.associate = (models) => {
     Sales.belongsTo(models.Users, {
@@ -29,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'seller_id', as: 'seller'
     });
     Sales.hasMany(models.SalesProducts, {
-      key: 'sale_id', as: 'sale',
+      key: 'sale_id', as: 'sales',
     })
   } 
   return Sales;

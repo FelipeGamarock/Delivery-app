@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const Product = sequelize.define('Product', {
+  const Product = sequelize.define('Products', {
     id: { 
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     urlImage: DataTypes.STRING
   }, {
     timestamps: false,
-    underscore: true,
+    underscored: true,
+    tableName: 'Products',
   });
   Product.associate = (models) => {
     Product.hasMany(models.SalesProducts, {

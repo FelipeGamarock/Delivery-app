@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
+      user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         onUpdate: 'CASCADE',
@@ -17,16 +17,14 @@ module.exports = {
           model: 'Users',
           key: 'id'
         },
-        field: 'user_id', 
       },
-      sellerId: {
+      seller_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Users',
           key: 'id'
-        },
-        field: 'seller_id', 
+        }, 
       },
       total_price: {
         type: Sequelize.DECIMAL(9,2)
