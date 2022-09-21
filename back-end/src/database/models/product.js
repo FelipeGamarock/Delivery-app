@@ -1,26 +1,24 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const Product = sequelize.define('Products', {
-    id: { 
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+  const Product = sequelize.define(
+    'Product',
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      name: DataTypes.STRING,
+      price: DataTypes.DOUBLE,
+      urlImage: DataTypes.STRING,
     },
-    name: DataTypes.STRING,
-    price: { 
-      type: DataTypes.DOUBLE,
-    },
-    urlImage: DataTypes.STRING
-  }, {
-    timestamps: false,
-    underscored: true,
-    tableName: 'Products',
-  });
-  Product.associate = (models) => {
-    Product.hasMany(models.SalesProducts, {
-      foreignKey: 'product_id', as: 'Product'
-    })
-  }
+    {
+      tableName: 'products',
+      timestamps: false,
+      underscored: true,
+    }
+  );
+
   return Product;
 };
