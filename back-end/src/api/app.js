@@ -1,8 +1,9 @@
 const express = require('express');
-const { User, Product, Sale, SaleProduct } = require('../database/models')
+const { User, Product, Sale, SaleProduct } = require('../database/models');
 
 const app = express();
-app.use(express.json())
+
+app.use(express.json());
 
 const tst = async () => {
   const user = await User.findAll({
@@ -17,8 +18,9 @@ const tst = async () => {
   const saleProduct = await SaleProduct.findAll({
     logging: console.log,
   });
-  return { user, product, sale, saleProduct }
-}
+
+  return { user, product, sale, saleProduct };
+};
 
 app.get('/coffee', async (_req, res) => res.status(200).json(await tst()));
 
