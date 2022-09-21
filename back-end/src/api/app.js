@@ -1,9 +1,11 @@
 const express = require('express');
 const { User, Product, Sale, SaleProduct } = require('../database/models');
+const cors = require('cors');
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 const tst = async () => {
   const user = await User.findAll({
