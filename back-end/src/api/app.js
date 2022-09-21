@@ -1,29 +1,12 @@
 const express = require('express');
-const { User, Product, Sale, SaleProduct } = require('../database/models');
 const cors = require('cors');
+const { login } = require('../routes');
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-const tst = async () => {
-  const user = await User.findAll({
-    logging: console.log,
-  });
-  const product = await Product.findAll({
-    logging: console.log,
-  });
-  const sale = await Sale.findAll({
-    logging: console.log,
-  });
-  const saleProduct = await SaleProduct.findAll({
-    logging: console.log,
-  });
-
-  return { user, product, sale, saleProduct };
-};
-
-app.get('/coffee', async (_req, res) => res.status(200).json(await tst()));
+app.use(login);
 
 module.exports = app;
