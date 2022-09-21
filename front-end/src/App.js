@@ -8,6 +8,7 @@ function App() {
     <Routes>
       <Route path="/" element={ <Navigate to="/login" /> } />
       <Route exact path="/login" element={ <Login /> } />
+      <Route exact path="/register" element={ <Login /> } />
     </Routes>
   );
 }
