@@ -13,7 +13,6 @@ module.exports = {
 
       return res.status(status).json(resultUser);
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ message: 'Server error' });
     }
   },
