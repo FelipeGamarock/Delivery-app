@@ -1,4 +1,4 @@
-import service from '../services/sale'
+const service = require('../services/sale')
 
 module.exports = {
   async findAll(req, res) {
@@ -7,7 +7,7 @@ module.exports = {
         if (message) {
           return res.status(status).json({ message });
         }
-  
+       console.log(resultSale); 
         return res.status(status).json(resultSale);
       } catch (error) {
         console.log(error);
