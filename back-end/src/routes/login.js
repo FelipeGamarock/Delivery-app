@@ -10,7 +10,7 @@ const validateRegister = require('../middlewares/schema/handleRegister');
 
 const router = express.Router();
 
-router.post('/login', genericMiddleware(validateLogin), validateToken, controller.login);
+router.post('/login', genericMiddleware(validateLogin), controller.login);
 
 router.post('/register', genericMiddleware(validateRegister), controller.register);
 
