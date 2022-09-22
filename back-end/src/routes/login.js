@@ -2,8 +2,6 @@ const express = require('express');
 
 const controller = require('../controllers/login');
 
-const validateToken = require('../middlewares/tokenJWT');
-
 const genericMiddleware = require('../middlewares/generic');
 const validateLogin = require('../middlewares/schema/handleLogin');
 const validateRegister = require('../middlewares/schema/handleRegister');

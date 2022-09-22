@@ -3,5 +3,5 @@ const customer = require('./customer');
 
 module.exports = {
   login,
-  customer
+  customer,
 };

@@ -1,8 +1,7 @@
 const { Product } = require('../database/models');
 
 module.exports = {
-  async products({ email, password }) {
-    
+  async products() {    
     const product = await Product.findAll();
 
     if (!product) return { status: 404, message: 'Products not found' };
