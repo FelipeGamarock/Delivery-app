@@ -23,6 +23,31 @@
   max-height: 80vh;
 }
 
+.btn-group button {
+  background-color: #04aa6d; /* Green background */
+  border: 1px solid green; /* Green border */
+  color: white; /* White text */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+  padding: 10px 24px; /* Some padding */
+}
+
+.btn-group button:not( :last-child ) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+
 @keyframes shake {
 
   0% {
