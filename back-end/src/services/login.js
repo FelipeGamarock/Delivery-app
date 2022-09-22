@@ -39,6 +39,7 @@ module.exports = {
       name: newUser.name,
       email: newUser.email,
       role: newUser.role,
+      password: newUser.password,
       token: token.generate(newUser.email, newUser.role),
     };
 

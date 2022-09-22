@@ -20,8 +20,10 @@ function Login() {
   useEffect(() => {
     const emailRegX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     const { email, password } = credentials;
-    const minLgth = 6;
-    if (emailRegX.test(email) && password.length >= minLgth) {
+    const minPwLgth = 6;
+    if (emailRegX.test(email)
+    && password.length >= minPwLgth
+    ) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
@@ -36,7 +38,7 @@ function Login() {
       setIsInvalidCredentials(true);
     }
   };
-  if (isCostumerLogged) return <Navigate to="/customer" />;
+  if (isCostumerLogged) return <Navigate to="/customer/products" />;
   return (
     <>
       <h1>App de entregas</h1>
