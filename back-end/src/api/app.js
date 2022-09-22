@@ -10,6 +10,6 @@ app.use(cors());
 
 app.use(login);
 app.use(customer);
-app.use(sale)
+app.use(sale);
 
 module.exports = app;
