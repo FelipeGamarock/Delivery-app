@@ -4,11 +4,12 @@ const service = require('../services/sale');
 module.exports = {
   async findAll(_req, res) {
       try {
-        const { status, message, resultSale } = await service.findAll();
+        const { status, message, resultSaleData } = await service.findAll();
+
         if (message) {
           return res.status(status).json({ message });
         }
-        return res.status(status).json(resultSale);
+        return res.status(status).json(resultSaleData);
       } catch (error) {
         return res.status(500).json({ message: 'Server error' });
       }

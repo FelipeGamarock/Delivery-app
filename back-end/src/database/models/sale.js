@@ -26,6 +26,12 @@ module.exports = (sequelize, DataTypes) => {
       underscored: true,
     }
   );
+  // Sale.associate = (models) => {
+  //   models.Sale.belongsTo(models.User, {
+  //     foreignKey: "sallerId",
+  //     as: "users"
+  //   });
+  // };
 
   return Sale;
 };
