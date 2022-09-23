@@ -31,12 +31,6 @@ function CustomerProducts() {
       <NavBar navLinks={ navLinks } />
       { toCheckout && <Navigate to="/customer/checkout" /> }
       { products.map((product) => <ProductCard key={ product.name } { ...product } />)}
-      {/* <Button
-        name={ test }
-        dataTestId="customer_products__button-cart"
-        className="checkout-btn-customer"
-        onClick={ () => setToCheckout(true) }
-      /> */}
       <button
         className="checkout-btn-customer"
         type="button"
