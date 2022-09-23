@@ -32,8 +32,9 @@ function Login() {
 
   const requestConnection = async () => {
     try {
-      const { role } = await requestLogin('/login', credentials);
-      if (role === 'customer') setIsCostumerLogged(true);
+      const user = await requestLogin('/login', credentials);
+      localStorage.setItem('user', JSON.stringify(user));
+      if (user.role === 'customer') setIsCostumerLogged(true);
     } catch (error) {
       setIsInvalidCredentials(true);
     }
