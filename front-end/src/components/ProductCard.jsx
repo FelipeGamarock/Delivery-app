@@ -1,8 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import CustomerContext from '../context/customer.context';
 
 function ProductCard({ name, price, urlImage, id }) {
+  const { cart, setCart } = useContext(CustomerContext);
   const [quantity, setQuantity] = useState(0);
+
+  const [didMount, setDidMount] = useState(false);
+
+  useEffect(() => setDidMount(true), []);
+
+  const addToCart = () => {
+    setQuantity((q) => q + 1);
+  };
+
+  useEffect(() => {
+    if (didMount) {
+      setCart({
+        ...cart,
+        [id]: {
+          id,
+          name,
+          price,
+          urlImage,
+          quantity,
+          totalProduct: quantity * price,
+        },
+      });
+    }
+  }, [quantity]);
+
   return (
     <section>
       <p
@@ -29,12 +56,14 @@ function ProductCard({ name, price, urlImage, id }) {
           <input
             data-testid={ `customer_products__input-card-quantity-${id}` }
             type="number"
+            min={ 0 }
+            onChange={ ({ target }) => setQuantity(target.value) }
             value={ quantity }
           />
           <button
             data-testid={ `customer_products__button-card-add-item-${id}` }
             type="button"
-            onClick={ () => setQuantity((q) => q + 1) }
+            onClick={ addToCart }
           >
             +
           </button>

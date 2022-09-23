@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+
 import NavBar from '../components/NavBar';
 import ProductCard from '../components/ProductCard';
-import { requestData } from '../service/requests';
+import CustomerContext from '../context/customer.context';
+import Button from '../components/Button';
 
 const navLinks = [{
   text: 'Produtos',
@@ -15,29 +17,30 @@ const navLinks = [{
 }];
 
 function CustomerProducts() {
-  const [products, setProducts] = useState([]);
-  const [isAuth, setIsAuth] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const itExists = localStorage.getItem('user');
-      let user;
-      if (itExists) {
-        user = JSON.parse(itExists);
-        if (!user.token) setIsAuth(false);
-      }
-      if (!itExists) setIsAuth(false);
-      const data = await requestData('/products');
-      setProducts(data);
-    };
-    fetchData();
-  }, []);
+  const [toCheckout, setToCheckout] = useState(false);
+  const { products, cart } = useContext(CustomerContext);
+  const cartProducts = Object.values(cart);
+  const sum = cartProducts.reduce((acc, curr) => acc + curr.totalProduct, 0)
+    .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 
-  if (!isAuth) return <Navigate to="/login" replace />;
-
+  if (toCheckout) return <Navigate to="/customer/checkout" />;
+  const test = (
+    <p
+      data-testid="customer_products__checkout-bottom-value"
+    >
+      {` Ver carrinho:${sum}`}
+    </p>
+  );
   return (
     <>
       <NavBar navLinks={ navLinks } />
       { products.map((product) => <ProductCard key={ product.name } { ...product } />)}
+      <Button
+        name={ test }
+        dataTestId="customer_products__button-cart"
+        className="checkout-btn-customer"
+        onClick={ () => setToCheckout(true) }
+      />
     </>
   );
 }
