@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+
 import NavBar from '../components/NavBar';
 import ProductCard from '../components/ProductCard';
-import { requestData } from '../service/requests';
+import CustomerContext from '../context/customer.context';
+// import Button from '../components/Button';
 
 const navLinks = [{
   text: 'Produtos',
@@ -15,29 +17,31 @@ const navLinks = [{
 }];
 
 function CustomerProducts() {
-  const [products, setProducts] = useState([]);
-  const [isAuth, setIsAuth] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      const itExists = localStorage.getItem('user');
-      let user;
-      if (itExists) {
-        user = JSON.parse(itExists);
-        if (!user.token) setIsAuth(false);
-      }
-      if (!itExists) setIsAuth(false);
-      const data = await requestData('/products');
-      setProducts(data);
-    };
-    fetchData();
-  }, []);
+  const [toCheckout, setToCheckout] = useState(false);
+  const { products, cart } = useContext(CustomerContext);
+  const cartProducts = Object.values(cart);
 
-  if (!isAuth) return <Navigate to="/login" replace />;
+  const sum = cartProducts.reduce((acc, curr) => acc + curr.totalProduct, 0);
+  // .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+
+  const submitRedirect = () => setToCheckout(true);
 
   return (
     <>
       <NavBar navLinks={ navLinks } />
+      { toCheckout && <Navigate to="/customer/checkout" /> }
       { products.map((product) => <ProductCard key={ product.name } { ...product } />)}
+      <button
+        className="checkout-btn-customer"
+        type="button"
+        data-testid="customer_products__button-cart"
+        disabled={ sum === 0 }
+        onClick={ submitRedirect }
+      >
+        <span data-testid="customer_products__checkout-bottom-value">
+          { sum.toFixed(2).toString().replace('.', ',') }
+        </span>
+      </button>
     </>
   );
 }

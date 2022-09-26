@@ -48,6 +48,12 @@
   background-color: #3e8e41;
 }
 
+.checkout-btn-customer {
+  bottom: 10%;
+  position: fixed;
+  right: 0;
+}
+
 @keyframes shake {
 
   0% {
