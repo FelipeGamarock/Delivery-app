@@ -18,13 +18,13 @@ module.exports = {
   async postSale(req, res) {
     const dataBody = req.body;
     try {
-      const { status, message } = await service.create(dataBody);
+      const { status, message, id } = await service.create(dataBody);
       if (message) {
         return res.status(status).json({ message });
       }
-      return res.status(status).json({ message: 'Criou' });
+      return res.status(status).json({ id });
     } catch (err) {
-      return res.status(500).json({ message: 'Server error' });
+      return res.status(500).json({ message: err.message });
     }
   },
 
