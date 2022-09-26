@@ -22,8 +22,10 @@ module.exports = {
   },
 
   async create(dataSale) {
-    await Sale.create(dataSale);
+    const { id } = await Sale.create(dataSale, { raw: true });
 
-    return { status: 201 };
+    if (!id) return { status: 404, message: 'id not found' };
+    
+    return { status: 201, id };
   },
 };
