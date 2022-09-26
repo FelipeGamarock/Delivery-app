@@ -28,4 +28,17 @@ module.exports = {
     }
   },
 
+  async findById(req, res) {
+    const { id } = req.params;
+    try {
+      const { status, message, resultSaleById } = await service.findById(id);
+      if (!resultSaleById) {
+        return res.status(status).json({ message });
+      }
+      return res.status(status).json(resultSaleById);
+    } catch (err) {
+      return res.status(500).json({ message: err.message });
+    }
+  },
+
 };

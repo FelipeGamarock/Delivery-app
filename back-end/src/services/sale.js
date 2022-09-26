@@ -28,4 +28,13 @@ module.exports = {
     
     return { status: 201, id };
   },
+
+  async findById(id) {
+    const resultSaleById = await Sale.findOne({ where: { id } });
+
+    if (!resultSaleById) return { status: 404, message: 'Sale not found' };
+    
+    return { status: 200, resultSaleById };
+  },
+
 };
