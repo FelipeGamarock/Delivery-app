@@ -3,16 +3,16 @@ const service = require('../services/sale');
 
 module.exports = {
   async findAll(_req, res) {
-      try {
-        const { status, message, resultSaleData } = await service.findAll();
+    try {
+      const { status, message, resultSaleData } = await service.findAll();
 
-        if (message) {
-          return res.status(status).json({ message });
-        }
-        return res.status(status).json(resultSaleData);
-      } catch (error) {
-        return res.status(500).json({ message: 'Server error' });
+      if (message) {
+        return res.status(status).json({ message });
       }
+      return res.status(status).json(resultSaleData);
+    } catch (error) {
+      return res.status(500).json({ message: 'Server error' });
+    }
   },
 
   async postSale(req, res) {
@@ -28,4 +28,32 @@ module.exports = {
     }
   },
 
+  async findById(req, res) {
+    const { id } = req.params;
+    try {
+      const { status, message, resultSaleById } = await service.findById(id);
+      if (!resultSaleById) {
+        return res.status(status).json({ message });
+      }
+      return res.status(status).json(resultSaleById);
+    } catch (err) {
+      return res.status(500).json({ message: err.message });
+    }
+  },
+
+  async updateSale(req, res) {
+    const { id } = req.params;
+    const { status } = req.body;
+    try {
+      const { resultSaleById } = await service.findById(id);
+      if (!resultSaleById) {
+        return res.status(404).json({ message: 'Sale not found' });
+      }
+      const { statusCode, message } = await service.updateSale(status, id);
+
+      return res.status(statusCode).json({ message });
+    } catch (err) {
+      return res.status(500).json({ message: err.message });
+    }
+  },
 };
