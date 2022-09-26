@@ -45,4 +45,10 @@ module.exports = {
 
     return { status: 201, resultUser };
   },
+
+  async findById(id) {
+    const getUserById = await User.findOne({ where: { id } });
+    const { name } = getUserById.dataValues;
+    return name;
+  },
 };
