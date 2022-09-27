@@ -5,9 +5,6 @@ import ProductsTable from '../components/ProductsTable';
 import { requestData, requestPost } from '../service/requests';
 import CustomerContext from '../context/customer.context';
 
-import Select from '../components/Select';
-import Input from '../components/Input';
-
 const navLinks = [{
   text: 'Produtos',
   route: '/customer/products',
@@ -62,8 +59,11 @@ function CustomerCheckout() {
 
       if (itExists) {
         const user = JSON.parse(itExists);
-
-        const sale = await requestPost('/sale', saleForm, user.token);
+        const products = cartProducts
+          .map((p) => ({ productId: p.id, quantity: p.quantity }));
+        const body = { ...saleForm, products };
+        console.log('🚀 ~ file: CustomerCheckout.jsx ~ line 65 ~ submitSale ~ body', body);
+        const sale = await requestPost('/sale', body, user.token);
         setOrderDetails(`/customer/orders/${sale.id}`);
         setIsFinished(true);
       }
@@ -82,36 +82,41 @@ function CustomerCheckout() {
         <h1>Detalhes e Endereço para Entrega</h1>
         <div>
           <form>
-            <Select
-              options={ users }
+            <p>P.Vendedora responsável:</p>
+            <select
+              data-testid="customer_checkout__select-seller"
+              id="seller"
               name="sellerId"
               value={ saleForm.sellerId }
-              selectTitle="P.Vendedora responsável: "
-              handleChange={ handleChange }
-              dataTestId="customer_checkout__select-seller"
-            />
-
-            <Input
+              onChange={ handleChange }
+              onClick={ handleChange }
+            >
+              {
+                users.map(({ id, name }) => (
+                  <option key={ id } value={ id }>{name}</option>
+                ))
+              }
+            </select>
+            <p>Endereço:</p>
+            <input
               name="deliveryAddress"
               value={ saleForm.deliveryAddress }
-              inputTitle="Endereço: "
-              handleChange={ handleChange }
-              dataTestId="customer_checkout__input-address"
+              onChange={ handleChange }
+              data-testid="customer_checkout__input-address"
               type="text"
             />
-
-            <Input
+            <p>Número</p>
+            <input
               name="deliveryNumber"
               value={ saleForm.deliveryNumber }
-              inputTitle="Número: "
-              handleChange={ handleChange }
-              dataTestId="customer_checkout__input-address-number"
+              onChange={ handleChange }
+              data-testid="customer_checkout__input-address-number"
               type="text"
             />
 
             <button
               data-testid="customer_checkout__button-submit-order"
-              type="submit"
+              type="button"
               onClick={ submitSale }
             >
               FINALIZAR PEDIDO
