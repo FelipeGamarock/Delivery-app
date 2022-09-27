@@ -33,7 +33,8 @@ function Register() {
 
   const requestRegister = async () => {
     try {
-      await requestLogin('/register', credentials);
+      const newUser = await requestLogin('/register', credentials);
+      localStorage.setItem('user', JSON.stringify(newUser));
       setWasCreated(true);
     } catch (error) {
       setIsInvalidCredentials(true);
