@@ -16,9 +16,11 @@ module.exports = {
   },
 
   async postSale(req, res) {
-    const dataBody = req.body;
+    const dataSale = req.body;
+    const userId = req.user;
+
     try {
-      const { status, message, id } = await service.create(dataBody);
+      const { status, message, id } = await service.create(dataSale, userId);
       if (message) {
         return res.status(status).json({ message });
       }

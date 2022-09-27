@@ -16,7 +16,7 @@ module.exports = {
       name: user.name,
       email: user.email,
       role: user.role,
-      token: token.generate(user.email, user.role),
+      token: token.generate(user.id, user.email, user.role),
     };
 
     return { status: 200, resultUser };
@@ -40,7 +40,7 @@ module.exports = {
       email: newUser.email,
       role: newUser.role,
       password: newUser.password,
-      token: token.generate(newUser.email, newUser.role),
+      token: token.generate(newUser.id, newUser.email, newUser.role),
     };
 
     return { status: 201, resultUser };

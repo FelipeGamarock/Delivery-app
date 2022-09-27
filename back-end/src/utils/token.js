@@ -8,7 +8,7 @@ module.exports = {
     return jwt.verify(token, secret);
   },
 
-  generate(email, role) {
-    return jwt.sign({ email, role }, secret, { expiresIn: '7d' });
+  generate(id, email, role) {
+    return jwt.sign({ id, email, role }, secret, { expiresIn: '7d' });
   },
 }; 
