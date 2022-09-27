@@ -4,7 +4,6 @@ import { Navigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import ProductCard from '../components/ProductCard';
 import CustomerContext from '../context/customer.context';
-// import Button from '../components/Button';
 
 const navLinks = [{
   text: 'Produtos',
@@ -18,13 +17,15 @@ const navLinks = [{
 
 function CustomerProducts() {
   const [toCheckout, setToCheckout] = useState(false);
-  const { products, cart } = useContext(CustomerContext);
-  const cartProducts = Object.values(cart);
+  const { products, cart, cartProducts, setCartProducts } = useContext(CustomerContext);
 
   const sum = cartProducts.reduce((acc, curr) => acc + curr.totalProduct, 0);
   // .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 
-  const submitRedirect = () => setToCheckout(true);
+  const submitRedirect = () => {
+    setCartProducts(Object.values(cart));
+    setToCheckout(true);
+  };
 
   return (
     <>
