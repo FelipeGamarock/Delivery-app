@@ -2,7 +2,7 @@ const service = require('../services/customer');
 
 module.exports = {
   async findAll(req, res) {
-    const { id } = req.params;
+    const { id } = req.user;
     try {
       const { status, message, resultGetAllSale } = await service.findAll(id);
 
