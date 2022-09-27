@@ -14,7 +14,7 @@ const navLinks = [{
   testId: 'customer_products__element-navbar-link-products',
 }, {
   text: 'Meus Pedidos',
-  route: '/customer/order',
+  route: '/customer/orders',
   testId: 'customer_products__element-navbar-link-orders',
 }];
 
