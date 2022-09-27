@@ -1,4 +1,4 @@
-const { Sale, Product } = require('../database/models');
+const { Sale, Product, SaleProduct } = require('../database/models');
 const serviceLogin = require('./login');
 
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
   },
 
   async create(dataSale, userId) {
-    const { sellerId, totalPrice, deliveryAddress, deliveryNumber } = dataSale;
+    const { sellerId, totalPrice, deliveryAddress, deliveryNumber, products } = dataSale;
 
     const { id } = await Sale.create({
       userId: userId.id,
@@ -30,9 +30,20 @@ module.exports = {
       totalPrice,
       deliveryAddress,
       deliveryNumber, 
+    }, {
+      logging: console.log,
     });
-
+    
+    
     if (!id) return { status: 404, message: 'id not found' };
+    
+    const productList = products.map((p) => ({ 
+      ...p,
+      saleId: id 
+    }))
+    
+    const createSaleProducts = await SaleProduct.bulkCreate(productList);
+    console.log(createSaleProducts);
 
     return { status: 201, id };
   },
