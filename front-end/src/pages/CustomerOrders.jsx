@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
+import OrderCard from '../components/OrderCard';
 import { requestDataAuth } from '../service/requests';
 
 const navLinks = [{
@@ -27,28 +28,17 @@ function CustomerOrders() {
     }
     fetchData();
   }, []);
-  console.log(result);
+
   return (
     <>
       <NavBar navLinks={ navLinks } />
-      {result.map((order) => (
-        <div key={ order.id }>
-          <span data-testid={ `customer_orders__element-order-id-${order.id}` }>
-            Pedido:
-            {' '}
-            {order.id}
-          </span>
-          <span data-testid={ `customer_orders__element-delivery-status-${order.id}` }>
-            {order.status}
-          </span>
-          <span data-testid={ `customer_orders__element-order-date-${order.id}` }>
-            {order.saleDate}
-          </span>
-          <span data-testid={ `customer_orders__element-card-price-${order.id}` }>
-            {order.totalPrice}
-          </span>
-        </div>
-      ))}
+      <div>
+        {
+          result.length === 0
+            ? (<h1>vazio</h1>)
+            : (result.map((order) => <OrderCard key={ order.id } order={ order } />))
+        }
+      </div>
     </>
   );
 }
