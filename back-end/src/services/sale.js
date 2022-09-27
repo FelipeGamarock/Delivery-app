@@ -34,13 +34,12 @@ module.exports = {
       logging: console.log,
     });
     
-    
     if (!id) return { status: 404, message: 'id not found' };
     
     const productList = products.map((p) => ({ 
       ...p,
-      saleId: id 
-    }))
+      saleId: id, 
+    }));
     
     const createSaleProducts = await SaleProduct.bulkCreate(productList);
     console.log(createSaleProducts);
