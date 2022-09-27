@@ -6,6 +6,7 @@ import { requestData } from '../service/requests';
 function CustomerProvider({ children }) {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState({});
+  const [cartProducts, setCartProducts] = useState([]);
 
   const fetchProducts = async () => {
     const data = await requestData('/products');
@@ -21,7 +22,9 @@ function CustomerProvider({ children }) {
     setProducts,
     cart,
     setCart,
-  }), [products, cart]);
+    cartProducts,
+    setCartProducts,
+  }), [products, cart, cartProducts]);
 
   return (
     <CustomerContext.Provider
