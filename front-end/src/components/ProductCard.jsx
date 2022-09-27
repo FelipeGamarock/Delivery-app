@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CustomerContext from '../context/customer.context';
 
 function ProductCard({ name, price, urlImage, id }) {
-  const { cart, setCart } = useContext(CustomerContext);
+  const { cart, setCart, setCartProducts } = useContext(CustomerContext);
   const [quantity, setQuantity] = useState(0);
 
   const [didMount, setDidMount] = useState(false);
@@ -29,6 +29,10 @@ function ProductCard({ name, price, urlImage, id }) {
       });
     }
   }, [quantity]);
+
+  useEffect(() => {
+    setCartProducts(Object.values(cart));
+  }, [cart]);
 
   return (
     <section>
