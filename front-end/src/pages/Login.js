@@ -11,6 +11,7 @@ function Login() {
   });
   const [isDisabled, setIsDisabled] = useState(true);
   const [isCostumerLogged, setIsCostumerLogged] = useState(false);
+  const [isAdminLogged, setIsAdminLogged] = useState(false);
   const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
   const onInputChange = ({ target }) => setCredentials({
     ...credentials,
@@ -35,11 +36,13 @@ function Login() {
       const user = await requestLogin('/login', credentials);
       localStorage.setItem('user', JSON.stringify(user));
       if (user.role === 'customer') setIsCostumerLogged(true);
+      if (user.role === 'administrator') setIsAdminLogged(true);
     } catch (error) {
       setIsInvalidCredentials(true);
     }
   };
   if (isCostumerLogged) return <Navigate to="/customer/products" />;
+  if (isAdminLogged) return <Navigate to="/admin/manage" />;
   return (
     <>
       <h1>App de entregas</h1>
