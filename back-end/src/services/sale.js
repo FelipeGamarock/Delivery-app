@@ -1,4 +1,4 @@
-const { Sale, Product, SaleProduct } = require('../database/models');
+const { User, Sale, Product, SaleProduct } = require('../database/models');
 const serviceLogin = require('./login');
 
 module.exports = {
@@ -30,8 +30,6 @@ module.exports = {
       totalPrice,
       deliveryAddress,
       deliveryNumber, 
-    }, {
-      logging: console.log,
     });
     
     if (!id) return { status: 404, message: 'id not found' };
@@ -48,7 +46,13 @@ module.exports = {
   },
 
   async findById(id) {
-    const resultSaleById = await Sale.findOne({ where: { id } });
+    const resultSaleById = await Sale.findOne({ 
+      where: { id },
+      include: [
+        { model: Product, as: 'products' },
+        { model: User, as: 'seller', attributes: { exclude: ['password', 'email', 'role'] } },
+      ], 
+  });
 
     if (!resultSaleById) return { status: 404, message: 'Sale not found' };
 
