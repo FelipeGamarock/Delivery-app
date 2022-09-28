@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const ORDER_DETAILS_EL = 'customer_orders__element';
-function OrderCard({ order }) {
-  const { id, status, saleDate, totalPrice } = order;
+function OrderCard({ order, isCustomer }) {
+  const { id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber } = order;
+  const ORDER_DETAILS_EL = (isCustomer)
+    ? 'customer_orders__element' : 'seller_orders__element';
+  const ORDER_LINK = (isCustomer) ? `/customer/orders/${id}` : `/seller/orders/${id}`;
 
   return (
-    <Link to={ `/customer/orders/${id}` } key={ id }>
+    <Link to={ ORDER_LINK } key={ id }>
       <span data-testid={ `${ORDER_DETAILS_EL}-order-id-${id}` }>
         Pedido:
         {' '}
@@ -21,6 +23,10 @@ function OrderCard({ order }) {
       <span data-testid={ `${ORDER_DETAILS_EL}-card-price-${id}` }>
         {(totalPrice).replace('.', ',')}
       </span>
+      {!isCustomer && (
+        <span data-testid={ `seller_orders__element-card-address-${id}` }>
+          {`${deliveryAddress}, ${deliveryNumber}`}
+        </span>)}
     </Link>
   );
 }

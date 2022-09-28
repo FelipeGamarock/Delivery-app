@@ -36,7 +36,8 @@ function CustomerOrders() {
         {
           result.length === 0
             ? (<h1>vazio</h1>)
-            : (result.map((order) => <OrderCard key={ order.id } order={ order } />))
+            : (result
+              .map((order) => <OrderCard key={ order.id } isCustomer order={ order } />))
         }
       </div>
     </>

@@ -12,6 +12,7 @@ function Login() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isCostumerLogged, setIsCostumerLogged] = useState(false);
   const [isAdminLogged, setIsAdminLogged] = useState(false);
+  const [isSellerLogged, setIsSellerLogged] = useState(false);
   const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
   const onInputChange = ({ target }) => setCredentials({
     ...credentials,
@@ -21,7 +22,10 @@ function Login() {
   useEffect(() => {
     const itExists = localStorage.getItem('user');
     if (itExists) {
-      setIsCostumerLogged(true);
+      const user = JSON.parse(itExists);
+      if (user.role === 'customer') setIsCostumerLogged(true);
+      if (user.role === 'administrator') setIsAdminLogged(true);
+      if (user.role === 'seller') setIsSellerLogged(true);
     }
   }, []);
 
@@ -44,12 +48,14 @@ function Login() {
       localStorage.setItem('user', JSON.stringify(user));
       if (user.role === 'customer') setIsCostumerLogged(true);
       if (user.role === 'administrator') setIsAdminLogged(true);
+      if (user.role === 'seller') setIsSellerLogged(true);
     } catch (error) {
       setIsInvalidCredentials(true);
     }
   };
   if (isCostumerLogged) return <Navigate to="/customer/products" />;
   if (isAdminLogged) return <Navigate to="/admin/manage" />;
+  if (isSellerLogged) return <Navigate to="/seller/orders" />;
   return (
     <>
       <h1>App de entregas</h1>
