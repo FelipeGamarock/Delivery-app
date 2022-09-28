@@ -16,10 +16,10 @@ function OrderCard({ order }) {
         {status}
       </span>
       <span data-testid={ `${ORDER_DETAILS_EL}-order-date-${id}` }>
-        {new Date(saleDate).toLocaleDateString()}
+        {new Date(saleDate).toLocaleDateString('pt-br')}
       </span>
       <span data-testid={ `${ORDER_DETAILS_EL}-card-price-${id}` }>
-        {totalPrice}
+        {(totalPrice).replace('.', ',')}
       </span>
     </Link>
   );
