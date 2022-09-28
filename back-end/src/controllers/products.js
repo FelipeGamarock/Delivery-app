@@ -9,8 +9,8 @@ module.exports = {
           }
     
           return res.status(status).json(resultProduct);
-        } catch (error) {
-          return res.status(500).json({ message: 'Server error' });
+        } catch (err) {
+          return res.status(500).json({ message: err.message });
         }
     },
 };
