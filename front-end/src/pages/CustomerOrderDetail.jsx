@@ -43,6 +43,7 @@ function CustomerOrderDetail() {
       await requestPatch(`/sale/${id}`, { status: 'Entregue' }, user.token);
     }
   }
+
   console.log(result);
   return (
     <>
