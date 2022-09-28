@@ -19,6 +19,13 @@ function Login() {
   });
 
   useEffect(() => {
+    const itExists = localStorage.getItem('user');
+    if (itExists) {
+      setIsCostumerLogged(true);
+    }
+  }, []);
+
+  useEffect(() => {
     const emailRegX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     const { email, password } = credentials;
     const minPwLgth = 6;

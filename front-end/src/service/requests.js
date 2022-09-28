@@ -14,6 +14,11 @@ export const requestData = async (endpoint) => {
   return data;
 };
 
+export const requestDataAuth = async (endpoint, auth) => {
+  const { data } = await api.get(endpoint, { headers: { authorization: auth } });
+  return data;
+};
+
 export const requestPost = async (endpoint, body, auth) => {
   const { data } = await api.post(endpoint, body, { headers: { authorization: auth } });
   return data;
