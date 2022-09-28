@@ -23,3 +23,8 @@ export const requestPost = async (endpoint, body, auth) => {
   const { data } = await api.post(endpoint, body, { headers: { authorization: auth } });
   return data;
 };
+
+export const requestPatch = async (endpoint, body, auth) => {
+  const { data } = await api.patch(endpoint, body, { headers: { authorization: auth } });
+  return data;
+};
