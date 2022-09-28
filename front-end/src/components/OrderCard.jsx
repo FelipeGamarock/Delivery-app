@@ -16,7 +16,7 @@ function OrderCard({ order }) {
         {status}
       </span>
       <span data-testid={ `${ORDER_DETAILS_EL}-order-date-${id}` }>
-        {saleDate}
+        {new Date(saleDate).toLocaleDateString()}
       </span>
       <span data-testid={ `${ORDER_DETAILS_EL}-card-price-${id}` }>
         {totalPrice}
