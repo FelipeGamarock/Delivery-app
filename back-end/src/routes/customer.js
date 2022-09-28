@@ -4,6 +4,8 @@ const controller = require('../controllers/customer');
 
 const router = express.Router();
 
-router.get('/customer/:id/orders', controller.findAll);
+const validateToken = require('../middlewares/tokenJWT');
+
+router.get('/customer/orders', validateToken, controller.findAll);
 
 module.exports = router;
