@@ -29,12 +29,17 @@ module.exports = (sequelize, DataTypes) => {
       underscored: true,
     }
   );
-  // Sale.associate = (models) => {
-  //   models.Sale.belongsTo(models.User, {
-  //     foreignKey: "sallerId",
-  //     as: "users"
-  //   });
-  // };
+
+  Sale.associate = (models) => {
+    models.Sale.belongsTo(models.User, {
+      foreignKey: "sellerId",
+      as: "seller"
+    });
+    // models.Sale.hasMany(models.SaleProduct, {
+    //   foreignKey: "saleId",
+    //   as: "saleProducts"
+    // });
+  };
 
   return Sale;
 };

@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types';
+
 const ORDER_DETAILS_EL_TABLE = 'customer_order_details__element-order-table';
 
-function OrdersTable() {
-  const mockId = 1;
-
+function OrdersTable({ products }) {
   return (
     <table>
       <tbody>
@@ -13,27 +13,34 @@ function OrdersTable() {
           <th>Valor Unitário</th>
           <th>Sub-total</th>
         </tr>
-
-        <tr>
-          <td data-testid={ `${ORDER_DETAILS_EL_TABLE}-item-number-${mockId}` }>
-            1
-          </td>
-          <td data-testid={ `${ORDER_DETAILS_EL_TABLE}-name-${mockId}` }>
-            Descrição
-          </td>
-          <td data-testid={ `${ORDER_DETAILS_EL_TABLE}-quantity-${mockId}` }>
-            Quantidade
-          </td>
-          <td data-testid={ `${ORDER_DETAILS_EL_TABLE}-unit-price-${mockId}` }>
-            Valor Unitário
-          </td>
-          <td data-testid={ `${ORDER_DETAILS_EL_TABLE}-sub-total-${mockId}` }>
-            Sub-total
-          </td>
-        </tr>
+        {
+          products.map((prod) => (
+            <tr key={ prod.id }>
+              <td data-testid={ `${ORDER_DETAILS_EL_TABLE}-item-number-${prod.id}` }>
+                {prod.id}
+              </td>
+              <td data-testid={ `${ORDER_DETAILS_EL_TABLE}-name-${prod.id}` }>
+                {prod.name}
+              </td>
+              <td data-testid={ `${ORDER_DETAILS_EL_TABLE}-quantity-${prod.id}` }>
+                {prod.SaleProduct.quantity}
+              </td>
+              <td data-testid={ `${ORDER_DETAILS_EL_TABLE}-unit-price-${prod.id}` }>
+                {prod.price}
+              </td>
+              <td data-testid={ `${ORDER_DETAILS_EL_TABLE}-sub-total-${prod.id}` }>
+                {(prod.price * prod.SaleProduct.quantity).toFixed(2).replace('.', ',')}
+              </td>
+            </tr>
+          ))
+        }
       </tbody>
     </table>
   );
 }
 
 export default OrdersTable;
+
+OrdersTable.propTypes = {
+  products: PropTypes.objectOf,
+}.isRequired;

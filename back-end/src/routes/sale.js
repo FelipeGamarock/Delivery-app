@@ -11,6 +11,6 @@ router.post('/sale', validateToken, controller.postSale);
 
 router.get('/sale/:id', controller.findById);
 
-router.patch('/sale/:id', controller.updateSale);
+router.patch('/sale/:id', validateToken, controller.updateSale);
 
 module.exports = router;

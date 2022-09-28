@@ -16,7 +16,7 @@ const navLinks = [{
 }];
 
 function CustomerCheckout() {
-  const { cartProducts } = useContext(CustomerContext);
+  const { cartProducts, setCart } = useContext(CustomerContext);
   const [isFinished, setIsFinished] = useState(false);
   const [orderDetails, setOrderDetails] = useState('');
   const [users, setUsers] = useState([]);
@@ -62,9 +62,9 @@ function CustomerCheckout() {
         const products = cartProducts
           .map((p) => ({ productId: p.id, quantity: p.quantity }));
         const body = { ...saleForm, products };
-        console.log('🚀 ~ file: CustomerCheckout.jsx ~ line 65 ~ submitSale ~ body', body);
         const sale = await requestPost('/sale', body, user.token);
         setOrderDetails(`/customer/orders/${sale.id}`);
+        setCart({});
         setIsFinished(true);
       }
     } catch (error) {
