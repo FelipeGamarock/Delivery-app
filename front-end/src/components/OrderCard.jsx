@@ -4,8 +4,11 @@ import { Link } from 'react-router-dom';
 function OrderCard({ order, isCustomer }) {
   const { id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber } = order;
   const ORDER_DETAILS_EL = (isCustomer)
-    ? 'customer_orders__element' : 'seller_orders__element';
-  const ORDER_LINK = (isCustomer) ? `/customer/orders/${id}` : `/seller/orders/${id}`;
+    ? 'customer_orders__element'
+    : 'seller_orders__element';
+  const ORDER_LINK = (isCustomer)
+    ? `/customer/orders/${id}`
+    : `/seller/orders/${id}`;
 
   return (
     <Link to={ ORDER_LINK } key={ id }>

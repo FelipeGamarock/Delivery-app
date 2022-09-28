@@ -9,6 +9,7 @@ import AdminPage from './pages/AdminPage';
 import CustomerOrders from './pages/CustomerOrders';
 import CustomerOrderDetail from './pages/CustomerOrderDetail';
 import SellerOrders from './pages/SellerOrders';
+import SellerOrderDetails from './pages/SellerOrderDetails';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route exact path="/customer/orders" element={ <CustomerOrders /> } />
       <Route exact path="/admin/manage" element={ <AdminPage /> } />
       <Route exact path="/seller/orders" element={ <SellerOrders /> } />
+      <Route exact path="/seller/orders/:id" element={ <SellerOrderDetails /> } />
     </Routes>
   );
 }

@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 
-const ORDER_DETAILS_EL_TABLE = 'customer_order_details__element-order-table';
-
-function OrdersTable({ products }) {
+function OrdersTable({ products, isCustomer }) {
+  const ORDER_DETAILS_EL_TABLE = (isCustomer)
+    ? 'customer_order_details__element-order-table'
+    : 'seller_order_details__element-order-table';
   return (
     <table>
       <tbody>
