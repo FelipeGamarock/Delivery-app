@@ -28,3 +28,7 @@ export const requestPatch = async (endpoint, body, auth) => {
   const { data } = await api.patch(endpoint, body, { headers: { authorization: auth } });
   return data;
 };
+export const requestDelete = async (endpoint, auth) => {
+  const { data } = await api.delete(endpoint, { headers: { authorization: auth } });
+  return data;
+};
