@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { requestLogin } from '../service/requests';
+import { requestPost } from '../service/requests';
 
 function RegisterAdmin() {
-  const [imputValues, setImputValues] = useState({
+  const [inputValues, setInputValues] = useState({
     email: '',
     password: '',
     name: '',
-    role: 'default',
+    role: '',
   });
   const [isDisabled, setIsDisabled] = useState(true);
+  const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
 
-  const onInputChange = ({ target }) => setImputValues({
-    ...imputValues,
-    [target.name]: target.value,
-  });
+  const handleChange = ({ target }) => {
+    setInputValues({
+      ...inputValues,
+      [target.name]: target.value,
+    });
+  };
 
   useEffect(() => {
     const emailRegX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-    const { email, password, name } = imputValues;
+    const { email, password, name } = inputValues;
     const minLgth = 6;
     const minNameLgth = 12;
     if (emailRegX.test(email)
@@ -27,12 +30,16 @@ function RegisterAdmin() {
     } else {
       setIsDisabled(true);
     }
-  }, [imputValues]);
+  }, [inputValues]);
 
-  const requestRegister = async () => {
+  const requestRegister = async (event) => {
+    event.preventDefault();
     try {
-      const newUser = await requestLogin('/register', imputValues);
-      localStorage.setItem('user', JSON.stringify(newUser));
+      const itExists = localStorage.getItem('user');
+      if (itExists) {
+        const user = JSON.parse(itExists);
+        await requestPost('/users', inputValues, user.token);
+      }
     } catch (error) {
       setIsInvalidCredentials(true);
     }
@@ -49,7 +56,7 @@ function RegisterAdmin() {
             type="text"
             id="input-name"
             data-testid="admin_manage__input-name"
-            onChange={ onInputChange }
+            onChange={ handleChange }
           />
         </label>
         <label htmlFor="input-email">
@@ -59,7 +66,7 @@ function RegisterAdmin() {
             type="email"
             id="input-email"
             data-testid="admin_manage__input-email"
-            onChange={ onInputChange }
+            onChange={ handleChange }
           />
         </label>
         <label htmlFor="input-password">
@@ -69,7 +76,7 @@ function RegisterAdmin() {
             type="password"
             id="input-password"
             data-testid="admin_manage__input-password"
-            onChange={ onInputChange }
+            onChange={ handleChange }
           />
         </label>
         <label htmlFor="select-role">
@@ -78,7 +85,8 @@ function RegisterAdmin() {
             name="role"
             id="select-role"
             data-testid="admin_manage__select-role"
-            onChange={ onInputChange }
+            onChange={ handleChange }
+            onClick={ handleChange }
           >
             <option value="seller">Seller</option>
             <option value="customer">Customer</option>
@@ -92,6 +100,13 @@ function RegisterAdmin() {
         >
           Register
         </button>
+        {
+          isInvalidCredentials
+          && (
+            <h2 data-testid="admin_manage__element-invalid-register">
+              Não foi possível cadastrar usuário com este e-mail
+            </h2>)
+        }
       </form>
     </div>
   );
