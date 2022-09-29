@@ -67,7 +67,11 @@ function SellerOrderDetails() {
               data-testid="seller_order_details__button-preparing-check"
               type="button"
               onClick={ () => handleDeliveryStatus('Preparando') }
-              disabled={ order.status === EM_TRANSITO || order.status === 'Preparando' }
+              disabled={
+                order.status === EM_TRANSITO
+                || order.status === 'Preparando'
+                || order.status === 'Entregue'
+              }
             >
               PREPARAR PEDIDO
             </button>
@@ -75,7 +79,11 @@ function SellerOrderDetails() {
               data-testid="seller_order_details__button-dispatch-check"
               type="button"
               onClick={ () => handleDeliveryStatus(EM_TRANSITO) }
-              disabled={ order.status === 'Pendente' || order.status === EM_TRANSITO }
+              disabled={
+                order.status === 'Pendente'
+              || order.status === EM_TRANSITO
+              || order.status === 'Entregue'
+              }
             >
               SAIU PARA ENTREGA
             </button>

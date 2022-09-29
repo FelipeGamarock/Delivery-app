@@ -18,33 +18,32 @@ const navLinks = [{
 
 function CustomerOrderDetail() {
   const { id } = useParams();
-  const [result, setResult] = useState([]);
+  const [order, setOrder] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
-      const orders = await requestData(`/sale/${id}`);
-      setResult(orders);
+      const data = await requestData(`/sale/${id}`);
+      setOrder(data);
       setIsLoading(true);
     }
     fetchData();
   }, [id]);
 
-  async function handlee() {
+  async function handleDeliveryStatus(status) {
     const itExists = localStorage.getItem('user');
 
     if (itExists) {
       const user = JSON.parse(itExists);
-      setResult({
-        ...result,
-        status: 'Entregue',
+      setOrder({
+        ...order,
+        status,
       });
 
-      await requestPatch(`/sale/${id}`, { status: 'Entregue' }, user.token);
+      await requestPatch(`/sale/${id}`, { status }, user.token);
     }
   }
 
-  console.log(result);
   return (
     <>
       <NavBar navLinks={ navLinks } />
@@ -60,29 +59,33 @@ function CustomerOrderDetail() {
             <span data-testid={ `${ORDER_DETAILS_EL}-label-seller-name` }>
               P.Vend:
               {' '}
-              {result.seller.name}
+              {order.seller.name}
             </span>
             <span data-testid={ `${ORDER_DETAILS_EL}-label-order-date` }>
-              {new Date(result.saleDate).toLocaleDateString('pt-br')}
+              {new Date(order.saleDate).toLocaleDateString('pt-br')}
             </span>
-            <span data-testid={ `${ORDER_DETAILS_EL}-label-delivery-status${result.id}` }>
-              {result.status}
+            <span data-testid={ `${ORDER_DETAILS_EL}-label-delivery-status${order.id}` }>
+              {order.status}
             </span>
             <button
               data-testid="customer_order_details__button-delivery-check"
               type="button"
-              onClick={ handlee }
-              disabled={ result.status === 'Pendente' }
+              onClick={ () => handleDeliveryStatus('Entregue') }
+              disabled={
+                order.status === 'Pendente'
+                || order.status === 'Preparando'
+                || order.status === 'Entregue'
+              }
             >
               MARCAR COMO ENTREGUE
             </button>
           </header>
-          <OrdersTable products={ result.products } />
+          <OrdersTable products={ order.products } />
           <span data-testid="customer_order_details__element-order-total-price">
             Total:
             {' '}
             {
-              Number(result.totalPrice)
+              Number(order.totalPrice)
                 .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
             }
           </span>
