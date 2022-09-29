@@ -39,8 +39,7 @@ module.exports = {
       saleId: id, 
     }));
     
-    const createSaleProducts = await SaleProduct.bulkCreate(productList);
-    console.log(createSaleProducts);
+    await SaleProduct.bulkCreate(productList);
 
     return { status: 201, id };
   },
