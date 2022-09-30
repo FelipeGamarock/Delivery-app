@@ -1,6 +1,7 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
 import AdminRegisterForms from '../components/AdminRegisterForms';
+import AdminUsersTable from '../components/AdminUsersTable';
 
 const navLinks = [{
   text: 'Gerenciar Usuários',
@@ -13,6 +14,7 @@ export default function HomeAdmin() {
     <div>
       <NavBar navLinks={ navLinks } />
       <AdminRegisterForms />
+      <AdminUsersTable />
     </div>
   );
 }
