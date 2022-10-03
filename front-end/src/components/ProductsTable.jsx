@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { Trash } from 'phosphor-react';
 import CustomerContext from '../context/customer.context';
 
 const TESTID = 'customer_checkout__element-order-table';
@@ -47,19 +48,23 @@ function ProductsTable() {
                 <td
                   data-testid={ `${TESTID}-unit-price-${index}` }
                 >
-                  {Number(price).toFixed(2).replace('.', ',')}
+                  {Number(price)
+                    .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                 </td>
                 <td
                   data-testid={ `${TESTID}-sub-total-${index}` }
                 >
-                  {totalProduct.toFixed(2).replace('.', ',')}
+                  {totalProduct
+                    .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                 </td>
                 <td>
                   <button
                     type="button"
                     onClick={ () => handleRemove(id) }
                     data-testid={ `${TESTID}-remove-${index}` }
+                    className="excludeButton"
                   >
+                    <Trash size={ 28 } />
                     Remover
                   </button>
                 </td>
@@ -68,13 +73,14 @@ function ProductsTable() {
         </tbody>
       </table>
 
-      <h1
+      <span
         data-testid="customer_checkout__element-order-total-price"
       >
         Total:
         {' '}
-        {sum.toFixed(2).toString().replace('.', ',')}
-      </h1>
+        {sum
+          .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+      </span>
     </div>
   );
 }

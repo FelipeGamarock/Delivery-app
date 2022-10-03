@@ -4,6 +4,8 @@ import NavBar from '../components/NavBar';
 import ProductsTable from '../components/ProductsTable';
 import { requestData, requestPost } from '../service/requests';
 import CustomerContext from '../context/customer.context';
+import Select from '../components/Select';
+import Input from '../components/Input';
 
 const navLinks = [{
   text: 'Produtos',
@@ -82,35 +84,28 @@ function CustomerCheckout() {
         <h1>Detalhes e Endereço para Entrega</h1>
         <div>
           <form>
-            <p>P.Vendedora responsável:</p>
-            <select
-              data-testid="customer_checkout__select-seller"
-              id="seller"
+            <Select
+              options={ users }
               name="sellerId"
+              selectTitle="P.Vendedora responsável:"
               value={ saleForm.sellerId }
-              onChange={ handleChange }
-              onClick={ handleChange }
-            >
-              {
-                users.map(({ id, name }) => (
-                  <option key={ id } value={ id }>{name}</option>
-                ))
-              }
-            </select>
-            <p>Endereço:</p>
-            <input
+              dataTestId="customer_checkout__select-seller"
+              handleChange={ handleChange }
+            />
+            <Input
               name="deliveryAddress"
+              inputTitle="Endereço:"
               value={ saleForm.deliveryAddress }
-              onChange={ handleChange }
-              data-testid="customer_checkout__input-address"
+              dataTestId="customer_checkout__input-address"
+              handleChange={ handleChange }
               type="text"
             />
-            <p>Número</p>
-            <input
+            <Input
               name="deliveryNumber"
+              inputTitle="Número:"
               value={ saleForm.deliveryNumber }
-              onChange={ handleChange }
-              data-testid="customer_checkout__input-address-number"
+              dataTestId="customer_checkout__input-address-number"
+              handleChange={ handleChange }
               type="text"
             />
 

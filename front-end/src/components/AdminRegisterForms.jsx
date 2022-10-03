@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { requestPost } from '../service/requests';
+import Button from './Button';
+import Input from './Input';
+import Select from './Select';
 
 function RegisterAdmin() {
   const [inputValues, setInputValues] = useState({
@@ -40,6 +43,13 @@ function RegisterAdmin() {
         const user = JSON.parse(itExists);
         await requestPost('/users', inputValues, user.token);
       }
+
+      setInputValues({
+        email: '',
+        password: '',
+        name: '',
+        role: '',
+      });
     } catch (error) {
       setIsInvalidCredentials(true);
     }
@@ -48,58 +58,46 @@ function RegisterAdmin() {
   return (
     <div>
       <h2>Cadastrar novo usuário</h2>
-      <form>
-        <label htmlFor="input-name">
-          Name
-          <input
-            name="name"
-            type="text"
-            id="input-name"
-            data-testid="admin_manage__input-name"
-            onChange={ handleChange }
-          />
-        </label>
-        <label htmlFor="input-email">
-          Email
-          <input
-            name="email"
-            type="email"
-            id="input-email"
-            data-testid="admin_manage__input-email"
-            onChange={ handleChange }
-          />
-        </label>
-        <label htmlFor="input-password">
-          Password
-          <input
-            name="password"
-            type="password"
-            id="input-password"
-            data-testid="admin_manage__input-password"
-            onChange={ handleChange }
-          />
-        </label>
-        <label htmlFor="select-role">
-          Tipo
-          <select
-            name="role"
-            id="select-role"
-            data-testid="admin_manage__select-role"
-            onChange={ handleChange }
-            onClick={ handleChange }
-          >
-            <option value="seller">Seller</option>
-            <option value="customer">Customer</option>
-          </select>
-        </label>
-        <button
+      <form onSubmit={ requestRegister }>
+        <Input
+          name="name"
+          inputTitle="Nome"
+          value={ inputValues.name }
+          dataTestId="admin_manage__input-name"
+          handleChange={ handleChange }
+          type="text"
+        />
+        <Input
+          name="email"
+          inputTitle="Email"
+          value={ inputValues.email }
+          dataTestId="admin_manage__input-email"
+          handleChange={ handleChange }
+          type="email"
+        />
+        <Input
+          name="password"
+          inputTitle="Senha"
+          value={ inputValues.password }
+          dataTestId="admin_manage__input-password"
+          handleChange={ handleChange }
+          type="password"
+        />
+        <Select
+          options={ [{ name: 'seller' }, { name: 'customer' }] }
+          name="role"
+          selectTitle="Tipo"
+          value={ inputValues.role }
+          dataTestId="admin_manage__select-role"
+          handleChange={ handleChange }
+        />
+        <Button
+          name="Registrar"
+          dataTestId="admin_manage__button-register"
+          isDisabled={ isDisabled }
           type="submit"
-          data-testid="admin_manage__button-register"
-          disabled={ isDisabled }
-          onClick={ requestRegister }
-        >
-          Register
-        </button>
+        />
+
         {
           isInvalidCredentials
           && (
