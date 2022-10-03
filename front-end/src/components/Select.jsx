@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 function Select({ options, name, value, selectTitle, handleChange, dataTestId }) {
@@ -9,14 +10,18 @@ function Select({ options, name, value, selectTitle, handleChange, dataTestId })
         name={ name }
         value={ value }
         data-testid={ dataTestId }
-        defaultValue=""
         onChange={ handleChange }
         required
       >
         <option value="" disabled hidden>Selecione</option>
         {
           options.map((op) => (
-            <option key={ op.id } value={ op.id }>{op.name}</option>
+            <option
+              key={ op.id ? op.id : op.name }
+              value={ op.id ? op.id : op.name }
+            >
+              {op.name}
+            </option>
           ))
         }
       </select>
@@ -27,13 +32,20 @@ function Select({ options, name, value, selectTitle, handleChange, dataTestId })
 export default Select;
 
 Select.propTypes = {
+  selectTitle: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+  handleChange: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
   })).isRequired,
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  selectTitle: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
   dataTestId: PropTypes.string.isRequired,
+};
+
+Select.defaultProps = {
+  handleChange: () => {},
 };

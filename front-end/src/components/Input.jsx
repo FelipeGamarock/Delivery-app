@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 function Input({ name, value, inputTitle, handleChange, dataTestId, type }) {
@@ -20,10 +21,17 @@ function Input({ name, value, inputTitle, handleChange, dataTestId, type }) {
 export default Input;
 
 Input.propTypes = {
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
   inputTitle: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+  handleChange: PropTypes.func,
   dataTestId: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+};
+
+Input.defaultProps = {
+  handleChange: () => {},
 };
