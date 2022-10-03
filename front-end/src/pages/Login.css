@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;800;900&family=Roboto:wght@400;700&display=swap');
+body {
+  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+}
+
+.main-login {
+  align-items: center;
+  background-color: #201b2c;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.card-image {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  width: 50%;
+}
+
+.card-image > h1 {
+  color: #77ffc0;
+  font-size: 2vw;
+}
+
+.left-image-login {
+  width: 35vw;
+}
+
+.card-right {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 50%;
+}
+
+.card-login {
+  align-items: center;
+  background-color: #2f2841;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px #00000056;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px 35px;
+  width: 60%;
+}
+
+.card-login > h1{
+  color: #00ff88;
+  font-weight: 800;
+  font-size: 2vw;
+  margin: 0;
+}
+
+.text-field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.text-field > input {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 15px;
+  background-color: #514869;
+  color: #f0ffffde;
+  font-size: 12pt;
+  box-shadow: 0 10px 40px #00000056;
+  outline: none;
+}
+
+.text-field > label {
+  color: #f0ffffde;
+  margin-bottom: 10px;
+}
+
+.text-field > input::placeholder {
+  color: #f0ffff94;
+}
+
+.card-btn {
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+  width: 100%;
+  /* padding: 16px 0; */  
+}
+
+.card-btn > button{
+  margin: 8px 0;
+  background: #00ff88;
+  border: none;
+  border-radius: 8px;
+  color: #2b134b;
+  cursor: pointer;
+  box-shadow: 0 10px 40px;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  height: 40px;
+  outline: none;
+}
+
+.card-btn > button:hover{
+  background: #21ff98;
+  box-shadow: 0 10px 40px #21ff98;
+}
+
+.card-btn > button:nth-child(2) {
+color:#69f8b5;
+border: 3px solid #f0ffff94;
+background: #2f2841;
+box-shadow: none;
+}
