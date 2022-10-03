@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import { requestLogin } from '../service/requests';
+import './Login.css';
+import deliveryImage from './Delivery-cuate.svg';
 
 function Login() {
   const navigate = useNavigate();
@@ -34,7 +36,7 @@ function Login() {
     const { email, password } = credentials;
     const minPwLgth = 6;
     if (emailRegX.test(email)
-    && password.length >= minPwLgth
+      && password.length >= minPwLgth
     ) {
       setIsDisabled(false);
     } else {
@@ -58,44 +60,65 @@ function Login() {
   if (isSellerLogged) return <Navigate to="/seller/orders" />;
   return (
     <>
-      <h1>App de entregas</h1>
-      <section>
-        <label htmlFor="email">
-          Login
-          <input
-            name="email"
-            type="email"
-            data-testid="common_login__input-email"
-            onChange={ onInputChange }
+      {/* <h1>App de entregas</h1> */}
+      <section className="main-login">
+        <section className="card-image">
+          <h1>Frase para ilustrar a tela de login</h1>
+          <img
+            src={ deliveryImage }
+            className="left-image-login"
+            alt="Animação entregador em uma scooter"
           />
-        </label>
-        <label htmlFor="password">
-          Senha
-          <input
-            name="password"
-            type="password"
-            data-testid="common_login__input-password"
-            onChange={ onInputChange }
-          />
-        </label>
-        <Button
-          name="Login"
-          dataTestId="common_login__button-login"
-          isDisabled={ isDisabled }
-          onClick={ requestConnection }
-        />
-        <Button
-          name="Ainda não tenho conta"
-          dataTestId="common_login__button-register"
-          onClick={ () => navigate('/register') }
-        />
-        {
-          (isInvalidCredentials)
-          && (
-            <h2 data-testid="common_login__element-invalid-email">
-              Credencias inválidas
-            </h2>)
-        }
+        </section>
+
+        {/* Inicio === Card Login */}
+        <section className="card-right">
+          <div className="card-login">
+            <h1>LOGIN</h1>
+            <div className="text-field">
+              <label htmlFor="email">Email</label>
+              <input
+                name="email"
+                type="email"
+                data-testid="common_login__input-email"
+                onChange={onInputChange}
+                placeholder="Email"
+              />
+            </div>
+            <div className="text-field">
+              <label htmlFor="password">Senha</label>
+              <input
+                name="password"
+                type="password"
+                data-testid="common_login__input-password"
+                onChange={onInputChange}
+                placeholder="Senha"
+              />
+            </div>
+
+            <div className="card-btn">
+              <Button
+                name="Login"
+                dataTestId="common_login__button-login"
+                isDisabled={isDisabled}
+                onClick={requestConnection}
+              />
+              <Button
+                name="Ainda não tenho conta"
+                dataTestId="common_login__button-register"
+                onClick={() => navigate('/register')}
+              />
+            </div>
+          </div>
+
+          {
+            (isInvalidCredentials)
+            && (
+              <h2 data-testid="common_login__element-invalid-email">
+                Credencias inválidas
+              </h2>)
+          }
+        </section>
       </section>
     </>
   );
